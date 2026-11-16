@@ -208,47 +208,6 @@ The project could be improved by adding:
 - More detailed reports
 - Exporting inventory data to a file
 
-## Common Viva Questions and Answers
-
-### What is CRUD?
-
-CRUD stands for Create, Read, Update, and Delete. These are the four basic operations used to manage data.
-
-### Why is a list used in this project?
-
-A list is used to store multiple inventory items in an ordered collection.
-
-### Why is a dictionary used for each item?
-
-A dictionary stores data using key-value pairs. It makes each item's details easy to access using keys such as `id`, `name`, `quantity`, and `price`.
-
-### Why are functions used?
-
-Functions divide the program into smaller, reusable sections. They make the code easier to understand, test, and maintain.
-
-### How are item IDs generated?
-
-The program starts with the numeric value `101`. It creates IDs such as `I101`, `I102`, and `I103`, increasing the number after every successful addition.
-
-### What is the low-stock condition?
-
-An item is considered low stock when its quantity is less than `5`.
-
-### Why is exception handling used?
-
-Exception handling prevents the program from crashing when the user enters invalid data, such as text instead of a number.
-
-### What happens when an invalid item ID is entered?
-
-The program searches for the ID. If it does not exist, it displays an item-not-found message.
-
-### Is the data permanently stored?
-
-No. The data is stored only in memory and is lost when the program exits.
-
-### What type of application is this?
-
-It is a console-based application written in Python 3.
 
 ## Conclusion
 
