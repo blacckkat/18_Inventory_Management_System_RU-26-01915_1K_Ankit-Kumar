@@ -186,12 +186,11 @@ Low stock (below 5): I102 | Notebook | Qty: 3
 
 ## Limitations
 
-This project stores data only in memory. When the program is closed, all inventory data is lost.
+This project stores inventory data in an `inventory.csv` file located in the Source Code folder. Add, update, and delete operations automatically save the updated data, and the program reloads it on every startup.
 
 It does not currently use:
 
 - A database
-- A file for permanent storage
 - User login authentication
 - Multiple user roles
 - A graphical user interface
@@ -200,7 +199,7 @@ It does not currently use:
 
 The project could be improved by adding:
 
-- File-based data storage using JSON or CSV
+- File-based data storage using JSON or an alternative format
 - A database such as SQLite
 - Login and authentication
 - Sorting and filtering options

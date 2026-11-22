@@ -20,7 +20,7 @@ A basic console-based Inventory Management System written in Python 3.
 
 ## How to Run
 
-From the project directory, run:
+From the `Source Code` directory, run:
 
 ```bash
 python inventory_management.py
@@ -28,6 +28,8 @@ python inventory_management.py
 
 ## CRUD and Data Structure
 
-The program supports CRUD operations: create, read, update, and delete inventory items. Items are stored in memory as dictionaries inside a list, using the keys `id`, `name`, `quantity`, and `price`. Data is not saved after the program exits.
+The program supports CRUD operations: create, read, update, and delete inventory items. Items are stored in memory as dictionaries inside a list, using the keys `id`, `name`, `quantity`, and `price`.
+
+The inventory is saved permanently in `inventory.csv` in the Source Code folder. Add, update, and delete operations automatically update this file. The program loads the saved records whenever it starts.
 
 I took some help for the CRUD operations from internet..!!

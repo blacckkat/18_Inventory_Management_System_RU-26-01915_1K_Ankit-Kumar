@@ -1,8 +1,66 @@
 """Console-based inventory management system.
 
-Items are kept in memory as dictionaries with the keys:
+Items are stored persistently in inventory.csv using the keys:
     id, name, quantity, price
 """
+
+import csv
+import os
+
+
+INVENTORY_FILE = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "inventory.csv"
+)
+
+
+def load_inventory():
+    """Load inventory records from CSV, or return an empty list."""
+    items = []
+    if not os.path.exists(INVENTORY_FILE):
+        return items
+
+    with open(INVENTORY_FILE, "r", newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            try:
+                items.append({
+                    "id": row["id"].strip(),
+                    "name": row["name"].strip(),
+                    "quantity": int(row["quantity"]),
+                    "price": float(row["price"]),
+                })
+            except (KeyError, TypeError, ValueError):
+                continue
+    return items
+
+
+def save_inventory(items):
+    """Save all inventory records to the CSV file."""
+    with open(INVENTORY_FILE, "w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(
+            file, fieldnames=["id", "name", "quantity", "price"]
+        )
+        writer.writeheader()
+        for item in items:
+            writer.writerow({
+                "id": item["id"],
+                "name": item["name"],
+                "quantity": item["quantity"],
+                "price": format_number(item["price"]),
+            })
+
+
+def get_next_id(items):
+    """Return the next numeric ID based on the highest saved item ID."""
+    numeric_ids = []
+    for item in items:
+        item_id = item["id"].upper()
+        if item_id.startswith("I"):
+            try:
+                numeric_ids.append(int(item_id[1:]))
+            except ValueError:
+                continue
+    return max(numeric_ids, default=100) + 1
 
 
 def read_non_negative_quantity(
@@ -75,6 +133,7 @@ def add_item(items, next_id):
         "price": price,
     }
     items.append(item)
+    save_inventory(items)
     print(
         f"Item added. ID: {item_id} | {name} | "
         f"Qty: {quantity} | Price: {format_number(price)}"
@@ -124,6 +183,7 @@ def update_item(items):
         allow_blank=True,
         current=item["price"],
     )
+    save_inventory(items)
     print("Item updated successfully.")
 
 
@@ -154,6 +214,7 @@ def delete_item(items):
         return
 
     items.remove(item)
+    save_inventory(items)
     print(f"Item '{item['name']}' deleted. Items left: {len(items)}")
 
 
@@ -199,8 +260,8 @@ def display_menu():
 
 def main():
     """Run the interactive inventory management menu."""
-    items = []
-    next_id = 101
+    items = load_inventory()
+    next_id = get_next_id(items)
 
     while True:
         display_menu()
